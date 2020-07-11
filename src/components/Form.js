@@ -6,7 +6,8 @@ export default class Form extends Component {
         raws: 1,
         columns: 1,
         algorithm: "bubble-sort",
-        speed: 2
+        speed: 2,
+        disable: false
     }
 
     handleChange = e => {
@@ -21,7 +22,8 @@ export default class Form extends Component {
         }
     }
 
-    handeSubmit = e => {
+    handleSubmit = e => {
+        console.log("hola");
         e.preventDefault()
         //Do Something Late
 
@@ -91,7 +93,7 @@ export default class Form extends Component {
                     <hr/>
 
                     <div className="form-section">
-                        <button type="submit"> Shuffle</button>
+                        <button type="submit" disabled={this.state.disable}>Shuffle</button>
                         <button>Sort</button>
                     </div>
                 </form>
