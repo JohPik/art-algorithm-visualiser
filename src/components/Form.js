@@ -2,7 +2,7 @@ import React from 'react'
 import { ProductConsumer } from '../Context'
 
 export default function Form() {
-    const hello = values => {
+    const renderForm = values => {
         
         const {raws, columns, algorithm, speed, disable, handleChange, handleSubmit}  = values;
         const speedVariant = ["very slow", "slow", "normal", "fast", "very fast"]
@@ -68,7 +68,7 @@ export default function Form() {
     return (
         <section className="form-wrapper">
             <ProductConsumer>
-                {value => hello(value)}
+                {value => renderForm(value)}
             </ProductConsumer>
         </section>
     )
