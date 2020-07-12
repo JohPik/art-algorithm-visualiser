@@ -7,10 +7,12 @@ import Form from './components/Form'
 
 export default function App() {
   return (
-    <div className="App">
-      <Header/>
-      <Wall/>
-      <Form/>
-    </div>
+    <>
+    <img src="/imgs/logo-artgorithm.svg" alt="Artgorithm logo"/> 
+      <div className="main-wrapper"> 
+        <Wall/>
+        <Form/>
+      </div>
+    </>
   );
 }

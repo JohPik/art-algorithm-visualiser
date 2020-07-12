@@ -2,8 +2,6 @@ import React from 'react'
 
 export default function Painting(){
     return (
-        <p>
-        Painting component
-        </p>
+        <p>hello from painting</p>
     )
 }
