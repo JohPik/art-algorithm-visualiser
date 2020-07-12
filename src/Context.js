@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
+import { PaintingsDatabase } from './ressources/PaintingsDatabase'
 
 const ProductContext = React.createContext()
 
 class ProdProvider extends Component {
 
     state = {
+        paintingList: [],
+        currentPainting: {},
         raws: 1,
         columns: 1,
         algorithm: "bubble-sort",
@@ -12,6 +15,33 @@ class ProdProvider extends Component {
         disable: false
     }
     
+    componentWillMount() {
+        this.setPaintingsList()
+    }
+
+    componentDidMount() {
+        this.setCurrentPainting()
+    }
+
+    setPaintingsList = () => {
+        let tempPainting = []
+        PaintingsDatabase.forEach( paint => {
+        let singlePaint = { ...paint }
+        tempPainting = [ ...tempPainting, singlePaint]
+        })
+        this.setState({ paintingList: tempPainting })
+    }
+
+    setCurrentPainting = (value) => {
+        console.log(value)
+        if(!value){
+            this.setState({
+                currentPainting: this.state.paintingList[0]
+            })
+        }
+        // will need to make this smarter here !!!!!!!!!!!!!!!
+    }
+
     //handle change in the form
     handleChange = e => {
         if(e.target.type === "radio"){

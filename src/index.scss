@@ -57,12 +57,14 @@ $FontCode: 'Source Code Pro', monospace;
   min-width: 100vw;
   min-height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 
 /********** Wall **********/
-
+.wall-wrapper {
+  width: calc(100% - 215px);
+  text-align: center;
+}
 
 /********** Form **********/
 .form-wrapper {
@@ -71,6 +73,7 @@ $FontCode: 'Source Code Pro', monospace;
   height: 100%;
   width: 215px;
   right: 0;
+  top: 0;
 }
 
 form {
