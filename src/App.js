@@ -8,8 +8,8 @@ import Form from './components/Form'
 export default function App() {
   return (
     <>
-    <img src="/imgs/logo-artgorithm.svg" alt="Artgorithm logo"/> 
-      <div className="main-wrapper"> 
+      <Header />
+      <div className="main"> 
         <Wall/>
         <Form/>
       </div>

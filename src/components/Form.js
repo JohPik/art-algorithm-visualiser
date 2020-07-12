@@ -6,24 +6,23 @@ export default function Form() {
         
         const {raws, columns, algorithm, speed, disable, handleChange, handleSubmit}  = values;
         const speedVariant = ["very slow", "slow", "normal", "fast", "very fast"]
+        console.log("raws", raws);
         
         return (
             <form onSubmit={handleSubmit}>
                     <div className="form-section">
                         <h3>Number of Sections</h3>
-                        <p>Choose a number of colums and raws to divide the painting in equal sections.</p>
+                        <p>Divide painting in equal sections.</p>
                         <input type="number"  name="raws" min="1" max="100" step="1" value={raws} onChange={handleChange}/>
                         <label htmlFor="raws">Raws</label>
                         <br/>
                         <input type="number"  name="columns" min="1" max="100" step="1" value={columns}  onChange={handleChange}/>
                         <label htmlFor="columns">Columns</label>
                     </div>
-                    
-                    <hr/>
-                    
+            
                     <div className="form-section">
                         <h3>Sorting Algorithm</h3>
-                        <p>Select a sorting Algorithm to be used.</p>              
+                        <p>Select a sorting Algorithm.</p>              
                         <input
                             type="radio" id="bubble-sort" name="algorithm"
                             checked={algorithm === "bubble-sort"}
@@ -50,21 +49,18 @@ export default function Form() {
                         <label htmlFor="other-sort">Other Sort</label><br/>
                     </div>
 
-                    <hr/>
-
                     <div className="form-section">
                         <h3>Visualisation Speed</h3>
-                        <p>Select the velocity/speed of sorting algorithm.</p>
+                        <p>Select the speed of sorting algorithm.</p>
                         <input type="range" id="speed" name="speed" min="0" max="4" value={speed} onChange={handleChange}/>
                         <br/>
-                        <label htmlFor="speed">current speed: <span className="speed-tag">{speedVariant[speed]}</span></label>               
+                        <label htmlFor="speed">current speed:</label>
+                        <p className="speed-tag">{speedVariant[speed]}</p>               
                     </div>
 
-                    <hr/>
-
                     <div className="form-section">
-                        <button type="submit" disabled={disable}>Shuffle</button>
-                        <button>Sort</button>
+                        <button type="submit" disabled={disable} className="shadow-button" >Shuffle</button>
+                        <button className="full-button">Sort</button>
                     </div>
                 </form>
         )
