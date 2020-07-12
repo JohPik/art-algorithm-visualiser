@@ -5,7 +5,7 @@ import Header from './components/Header'
 import Wall from './components/Wall'
 import Form from './components/Form'
 
-function App() {
+export default function App() {
   return (
     <div className="App">
       <Header/>
@@ -14,5 +14,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
