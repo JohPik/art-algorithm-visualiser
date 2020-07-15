@@ -8,21 +8,46 @@ class ProdProvider extends Component {
     state = {
         paintingList: [],
         currentPainting: {},
-        raws: 1,
-        columns: 1,
+        raws: 2,
+        columns: 2,
         algorithm: "bubble-sort",
         speed: 2,
-        disable: false
-    }
-    
-    componentWillMount() {
-        this.setPaintingsList()
+        disable: false,
+        paintingParts: []
     }
 
     componentDidMount() {
-        this.setCurrentPainting()
+        
+        //Save copy of Painting List 
+        const stepZero =  () => {
+            return new Promise( resolve => {
+                this.setPaintingsList()
+                resolve();
+            })
+        }
+
+        //Save copy of Painting List
+        const stepOne = () => { 
+            return new Promise( resolve => {
+                this.setCurrentPainting()
+                resolve();
+            });
+        }
+        
+        //Split Painting In Equal Parts
+        const stepTwo = () => {
+            return new Promise( resolve => {
+                const { columns, raws } = this.state;
+                const currentPainting = this.state.currentPainting.img
+                this.splitPainting(currentPainting, columns, raws);
+                resolve();
+            });
+        }
+
+        stepZero().then(stepOne).then(stepTwo).then(console.log("state :", this.state))
     }
 
+/********** Retrieve data from ressources & assigned current painting **********/
     setPaintingsList = () => {
         let tempPainting = []
         PaintingsDatabase.forEach( paint => {
@@ -33,7 +58,6 @@ class ProdProvider extends Component {
     }
 
     setCurrentPainting = (value) => {
-        console.log(value)
         if(!value){
             this.setState({
                 currentPainting: this.state.paintingList[0]
@@ -42,7 +66,46 @@ class ProdProvider extends Component {
         // will need to make this smarter here !!!!!!!!!!!!!!!
     }
 
-    //handle change in the form
+
+/********** Split Current Painting in Equal Parts **********/
+    splitPainting = (src, cols, raws) => {
+        //step 1 create canvas + img & TempPart
+        const canvas = document.createElement("CANVAS"),
+        ctx = canvas.getContext("2d"),
+        img = document.createElement("IMG");
+        img.src = src
+
+        //step 2 split painitng
+        const split = (cols, raws) => {
+
+            const paintingParts = [] // Temporary Parts
+
+            const slicedWidth  = img.width / cols;
+            const slicedHeight = img.height / raws;
+            const totalNbrParts = cols * raws; 
+    
+            for(var i = 0; i < totalNbrParts; i++) {
+                //create coordinates for sliced img
+                const x = -slicedWidth * (i % cols);
+                const y = -slicedHeight * Math.floor(i/cols);
+                //canvas size
+                canvas.width = slicedWidth; 
+                canvas.height = slicedHeight;
+                ctx.drawImage(img, x, y, slicedWidth * cols, slicedHeight * raws);
+                //add sliced image to temporary paintingParts array
+                paintingParts.push( canvas.toDataURL() );
+            }
+            // console.log(`the percentage is ${100/cols}%`)
+
+            //step 3 Add Splited Pictures to State
+            this.setState({ paintingParts })
+        }
+    
+        img.onload = (() => split(cols,raws));
+    }
+
+
+/********** Handle Form **********/
     handleChange = e => {
         if(e.target.type === "radio"){
             this.setState({
@@ -57,7 +120,7 @@ class ProdProvider extends Component {
 
     //MIGHT NOT NEED IT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     handleSubmit = e => {
-        console.log("hola");
+        console.log("hola from submission");
         e.preventDefault()
         //Do Something Late
 
