@@ -6,7 +6,6 @@ export default function Form() {
         
         const {raws, columns, algorithm, speed, disable, handleChange, handleSubmit}  = values;
         const speedVariant = ["very slow", "slow", "normal", "fast", "very fast"]
-        console.log("raws", raws);
         
         return (
             <form onSubmit={handleSubmit}>

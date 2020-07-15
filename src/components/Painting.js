@@ -4,11 +4,11 @@ import { ProductConsumer } from '../Context'
 export default function Painting(){
 
     const renderPainting = props => {
-        const painting = props.currentPainting.img
-        console.log(painting)
+        const { img, name } = props.currentPainting
+        // console.log(props)
 
         return (
-            <img src={painting}/>
+            <img src={img} alt={name}/>
         )
     }
     return (
@@ -17,3 +17,5 @@ export default function Painting(){
         </ProductConsumer>
     )
 }
+
+

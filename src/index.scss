@@ -61,9 +61,16 @@ $FontCode: 'Source Code Pro', monospace;
 }
 
 /********** Wall **********/
+
+
 .wall-wrapper {
   width: calc(100% - 215px);
   text-align: center;
+
+  // Temporary
+  img {
+    max-width: 300px;
+  }
 }
 
 /********** Form **********/
