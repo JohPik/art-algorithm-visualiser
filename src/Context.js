@@ -8,8 +8,8 @@ class ProdProvider extends Component {
     state = {
         paintingList: [],
         currentPainting: {},
-        raws: 2,
-        columns: 2,
+        raws: 1,
+        columns: 1,
         algorithm: "bubble-sort",
         speed: 2,
         disable: false,
@@ -17,7 +17,6 @@ class ProdProvider extends Component {
     }
 
     componentDidMount() {
-        
         //Save copy of Painting List 
         const stepZero =  () => {
             return new Promise( resolve => {
@@ -25,7 +24,6 @@ class ProdProvider extends Component {
                 resolve();
             })
         }
-
         //Save copy of Painting List
         const stepOne = () => { 
             return new Promise( resolve => {
@@ -33,7 +31,6 @@ class ProdProvider extends Component {
                 resolve();
             });
         }
-        
         //Split Painting In Equal Parts
         const stepTwo = () => {
             return new Promise( resolve => {
@@ -43,8 +40,16 @@ class ProdProvider extends Component {
                 resolve();
             });
         }
+        stepZero().then(stepOne).then(stepTwo)
+    }
 
-        stepZero().then(stepOne).then(stepTwo).then(console.log("state :", this.state))
+    componentDidUpdate(prevProps, prevState) {
+        // check whether Raws or Columns Number have changed
+        if (prevState.raws !== this.state.raws || prevState.columns !== this.state.columns) {
+        const { columns, raws } = this.state;
+        const currentPainting = this.state.currentPainting.img
+        this.splitPainting(currentPainting, columns, raws);
+        }
     }
 
 /********** Retrieve data from ressources & assigned current painting **********/
