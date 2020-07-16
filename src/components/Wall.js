@@ -13,9 +13,9 @@ export default function Wall(){
                 <div className="art">
                     <Painting/>
                 </div>
-                <InfoPlate/>
             </div>
         </div>
+        <InfoPlate/>
         </section>
     )
 }
