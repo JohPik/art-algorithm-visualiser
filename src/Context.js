@@ -10,6 +10,7 @@ class ProdProvider extends Component {
         currentPainting: {},
         raws: 1,
         columns: 1,
+        columnSize: "100%",
         algorithm: "bubble-sort",
         speed: 2,
         disable: false,
@@ -46,6 +47,7 @@ class ProdProvider extends Component {
     componentDidUpdate(prevProps, prevState) {
         // check whether Raws or Columns Number have changed
         if (prevState.raws !== this.state.raws || prevState.columns !== this.state.columns) {
+        
         const { columns, raws } = this.state;
         const currentPainting = this.state.currentPainting.img
         this.splitPainting(currentPainting, columns, raws);
@@ -100,10 +102,9 @@ class ProdProvider extends Component {
                 //add sliced image to temporary paintingParts array
                 paintingParts.push( canvas.toDataURL() );
             }
-            // console.log(`the percentage is ${100/cols}%`)
 
             //step 3 Add Splited Pictures to State
-            this.setState({ paintingParts })
+            this.setState({ paintingParts, columnSize: `${100/cols}%` })
         }
     
         img.onload = (() => split(cols,raws));
