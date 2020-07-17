@@ -149,10 +149,7 @@ class ProdProvider extends Component {
 
     //MIGHT NOT NEED IT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     handleSubmit = e => {
-        console.log("hola from submission");
         e.preventDefault()
-        //Do Something Late
-
     }
     
     render() {

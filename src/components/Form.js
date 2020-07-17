@@ -8,8 +8,7 @@ export default function Form() {
         const speedVariant = ["very slow", "slow", "normal", "fast", "very fast"]
         
         return (
-            <>
-            <form>
+            <form onSubmit={handleSubmit}>
                     <div className="form-section">
                         <h3>Number of Sections</h3>
                         <p>Divide painting in equal sections.</p>
@@ -57,12 +56,12 @@ export default function Form() {
                         <label htmlFor="speed">current speed:</label>
                         <p className="speed-tag">{speedVariant[speed]}</p>               
                     </div>
+
+                    <div className="form-section">
+                        <button disabled={disable} className="shadow-button" onClick={shuffle}>Shuffle</button>
+                        <button className="full-button">Sort</button>
+                    </div>
                 </form>
-                <div className="form-section">
-                    <button disabled={disable} className="shadow-button" onClick={shuffle}>Shuffle</button>
-                    <button className="full-button">Sort</button>
-                </div>
-                </>
         )
     }
     return (
