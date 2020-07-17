@@ -5,7 +5,6 @@ export default function InfoPlate(){
 
     const renderPainting = props => {
         const { name, link, artist, artistLink, dimensions, location, medium, years} = props.currentPainting
-        console.log(props)
 
         return ( //Render Each individual images
             <div className="info-plate">
