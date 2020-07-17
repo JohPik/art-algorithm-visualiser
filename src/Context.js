@@ -82,7 +82,7 @@ class ProdProvider extends Component {
         img = document.createElement("IMG");
         img.src = src
 
-        //step 2 split painitng
+        //step 2 split painting
         const split = (cols, raws) => {
 
             const paintingParts = [] // Temporary Parts
@@ -100,7 +100,11 @@ class ProdProvider extends Component {
                 canvas.height = slicedHeight;
                 ctx.drawImage(img, x, y, slicedWidth * cols, slicedHeight * raws);
                 //add sliced image to temporary paintingParts array
-                paintingParts.push( canvas.toDataURL() );
+                paintingParts.push( [ i, canvas.toDataURL() ] );
+                // const tempPart = {};
+                //tempPart[i] = canvas.toDataURL();
+                //paintingParts.push(tempPart)
+                // paintingParts.push( canvas.toDataURL() );
             }
 
             //step 3 Add Splited Pictures to State
@@ -110,6 +114,25 @@ class ProdProvider extends Component {
         img.onload = (() => split(cols,raws));
     }
 
+/********** Shuffle Method **********/
+
+    shuffle = () => {
+        const { paintingParts } = this.state
+
+        const mix = parts => {
+            const array = [...paintingParts]
+
+            for (let i = array.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            this.setState({ paintingParts: array })
+            // console.log("partsCopy: ", partsCopy)
+        }
+
+        mix(paintingParts)
+
+    }
 
 /********** Handle Form **********/
     handleChange = e => {
@@ -137,7 +160,8 @@ class ProdProvider extends Component {
             <ProductContext.Provider value={{
                 ...this.state,
                 handleChange: this.handleChange,
-                handleSubmit: this.handleSubmit
+                handleSubmit: this.handleSubmit,
+                shuffle: this.shuffle
                 }}>
                 {this.props.children}
             </ProductContext.Provider>

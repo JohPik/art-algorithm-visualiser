@@ -4,11 +4,12 @@ import { ProductConsumer } from '../Context'
 export default function Form() {
     const renderForm = values => {
         
-        const {raws, columns, algorithm, speed, disable, handleChange, handleSubmit}  = values;
+        const {raws, columns, algorithm, speed, disable, handleChange, handleSubmit, shuffle}  = values;
         const speedVariant = ["very slow", "slow", "normal", "fast", "very fast"]
         
         return (
-            <form onSubmit={handleSubmit}>
+            <>
+            <form>
                     <div className="form-section">
                         <h3>Number of Sections</h3>
                         <p>Divide painting in equal sections.</p>
@@ -56,12 +57,12 @@ export default function Form() {
                         <label htmlFor="speed">current speed:</label>
                         <p className="speed-tag">{speedVariant[speed]}</p>               
                     </div>
-
-                    <div className="form-section">
-                        <button type="submit" disabled={disable} className="shadow-button" >Shuffle</button>
-                        <button className="full-button">Sort</button>
-                    </div>
                 </form>
+                <div className="form-section">
+                    <button disabled={disable} className="shadow-button" onClick={shuffle}>Shuffle</button>
+                    <button className="full-button">Sort</button>
+                </div>
+                </>
         )
     }
     return (

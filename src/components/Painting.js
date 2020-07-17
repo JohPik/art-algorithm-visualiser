@@ -8,7 +8,8 @@ export default function Painting(){
         const altName = props.currentPainting.name
 
         return ( //Render Each individual images
-            paintingParts.map( (part, i) => <img src={part} key={i} alt={`${altName} part number ${i}`} className="paiting-part" style={{maxWidth: columnSize}}/> )
+            paintingParts.map( part => <img key={part[0]} src={part[1]} alt={`${altName} part number ${part[0]}`} className="paiting-part" style={{maxWidth: columnSize}}/> )
+            // paintingParts.map( (part, i) => <img src={part} key={i} alt={`${altName} part number ${i}`} className="paiting-part" style={{maxWidth: columnSize}}/> )
         )
     }
     return (
