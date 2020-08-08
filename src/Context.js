@@ -47,8 +47,7 @@ class ProdProvider extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // console.log("MEGA MEGA UPDATE", this.state.partsNbrs )
-        // check whether Raws or Columns Number have changed
+        // console.log("MEGA MEGA UPDATE", this.state )
         if (prevState.raws !== this.state.raws || prevState.columns !== this.state.columns) {
         
         const { columns, raws } = this.state;
@@ -143,7 +142,8 @@ class ProdProvider extends Component {
 
 /********** Sort Method **********/
 
-    bubbleSort = async (array) => {
+    bubbleSort = async (array, ms) => {
+        console.log(ms)
         const partsNbrs = [...array]
 
         let noSwaps
@@ -151,9 +151,9 @@ class ProdProvider extends Component {
         const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
         const changeState = async () => {
-            await sleep(50).then(() => setAsyncState({ partsNbrs }))
+            await sleep(ms).then(() => setAsyncState({ partsNbrs }))
         }
-
+        
         // from https://stackoverflow.com/questions/53409325/does-this-setstate-return-promise-in-react#:~:text=setState%20is%20usually%20not%20used,doesn't%20return%20a%20promise.
         const setAsyncState = (newState) => new Promise( resolve => this.setState(newState, resolve))
 
@@ -174,8 +174,8 @@ class ProdProvider extends Component {
 
 
     sort = () => {
-        const arr = [...this.state.partsNbrs]
-        this.bubbleSort(arr)
+        const speeds = [1000, 500, 225, 150, 75] // Sorting Speeds
+        this.bubbleSort(this.state.partsNbrs, speeds[this.state.speed])
     }
 
 
