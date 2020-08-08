@@ -4,7 +4,7 @@ import { ProductConsumer } from '../Context'
 export default function Form() {
     const renderForm = values => {
         
-        const {raws, columns, algorithm, speed, disable, handleChange, handleSubmit, shuffle}  = values;
+        const {raws, columns, algorithm, speed, disable, handleChange, handleSubmit, shuffle, sort}  = values;
         const speedVariant = ["very slow", "slow", "normal", "fast", "very fast"]
         
         return (
@@ -59,7 +59,7 @@ export default function Form() {
 
                     <div className="form-section">
                         <button disabled={disable} className="shadow-button" onClick={shuffle}>Shuffle</button>
-                        <button className="full-button">Sort</button>
+                        <button className="full-button" onClick={sort}>Sort</button>
                     </div>
                 </form>
         )

@@ -14,7 +14,9 @@ class ProdProvider extends Component {
         algorithm: "bubble-sort",
         speed: 2,
         disable: false,
-        paintingParts: []
+        paintingParts: [],
+        partsNbrs: [],
+        partsNbrsMixed: []
     }
 
     componentDidMount() {
@@ -45,6 +47,7 @@ class ProdProvider extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        // console.log("MEGA MEGA UPDATE", this.state.partsNbrs )
         // check whether Raws or Columns Number have changed
         if (prevState.raws !== this.state.raws || prevState.columns !== this.state.columns) {
         
@@ -86,6 +89,7 @@ class ProdProvider extends Component {
         const split = (cols, raws) => {
 
             const paintingParts = [] // Temporary Parts
+            const partsNbrs = [] // Temporay Part Nbrs
 
             const slicedWidth  = img.width / cols;
             const slicedHeight = img.height / raws;
@@ -100,7 +104,10 @@ class ProdProvider extends Component {
                 canvas.height = slicedHeight;
                 ctx.drawImage(img, x, y, slicedWidth * cols, slicedHeight * raws);
                 //add sliced image to temporary paintingParts array
-                paintingParts.push( [ i, canvas.toDataURL() ] );
+                paintingParts.push( canvas.toDataURL() );
+                partsNbrs.push( i );
+                
+                // paintingParts.push( [ i, canvas.toDataURL() ] );
                 // const tempPart = {};
                 //tempPart[i] = canvas.toDataURL();
                 //paintingParts.push(tempPart)
@@ -108,7 +115,7 @@ class ProdProvider extends Component {
             }
 
             //step 3 Add Splited Pictures to State
-            this.setState({ paintingParts, columnSize: `${100/cols}%` })
+            this.setState({ paintingParts, partsNbrs ,columnSize: `${100/cols}%` })
         }
     
         img.onload = (() => split(cols,raws));
@@ -117,22 +124,60 @@ class ProdProvider extends Component {
 /********** Shuffle Method **********/
 
     shuffle = () => {
-        const { paintingParts } = this.state
+        const { partsNbrs } = this.state
 
         const mix = parts => {
-            const array = [...paintingParts]
+            const array = [...partsNbrs]
 
             for (let i = array.length - 1; i > 0; i--) {
                 let j = Math.floor(Math.random() * (i + 1));
                 [array[i], array[j]] = [array[j], array[i]];
             }
-            this.setState({ paintingParts: array })
-            // console.log("partsCopy: ", partsCopy)
+            this.setState({ partsNbrs: array })
         }
 
-        mix(paintingParts)
+        mix(partsNbrs)
 
     }
+
+
+/********** Sort Method **********/
+
+    bubbleSort = async (array) => {
+        const partsNbrs = [...array]
+
+        let noSwaps
+
+        const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+        const changeState = async () => {
+            await sleep(50).then(() => setAsyncState({ partsNbrs }))
+        }
+
+        // from https://stackoverflow.com/questions/53409325/does-this-setstate-return-promise-in-react#:~:text=setState%20is%20usually%20not%20used,doesn't%20return%20a%20promise.
+        const setAsyncState = (newState) => new Promise( resolve => this.setState(newState, resolve))
+
+        for (var i = partsNbrs.length; i > 0; i--) {
+            noSwaps = true;
+            for(var j = 0; j < i - 1; j++){
+                if(partsNbrs[j] > partsNbrs[j+1]){
+                    var temp = partsNbrs[j];
+                    partsNbrs[j] = partsNbrs[j+1];
+                    partsNbrs[j+1] = temp;
+                    noSwaps = false;         
+                }
+            }
+            await changeState()
+            if(noSwaps) break;
+        }
+    }
+
+
+    sort = () => {
+        const arr = [...this.state.partsNbrs]
+        this.bubbleSort(arr)
+    }
+
 
 /********** Handle Form **********/
     handleChange = e => {
@@ -158,7 +203,8 @@ class ProdProvider extends Component {
                 ...this.state,
                 handleChange: this.handleChange,
                 handleSubmit: this.handleSubmit,
-                shuffle: this.shuffle
+                shuffle: this.shuffle,
+                sort: this.sort
                 }}>
                 {this.props.children}
             </ProductContext.Provider>
