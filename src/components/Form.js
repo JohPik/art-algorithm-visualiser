@@ -29,6 +29,12 @@ export default function Form() {
                         />
                         <label htmlFor="bubble-sort">Bubble Sort</label><br/>
                         <input 
+                            type="radio" id="insertion-sort" name="algorithm"
+                            checked={algorithm === "insertion-sort"}
+                            value="insertion-sort" onChange={handleChange}
+                            />
+                        <label htmlFor="insertion-sort">Insertion Sort</label><br/>
+                        <input 
                             type="radio" id="merge-sort" name="algorithm"
                             checked={algorithm === "merge-sort"}
                             value="merge-sort" onChange={handleChange}
@@ -40,12 +46,6 @@ export default function Form() {
                             value="quick-sort" onChange={handleChange}
                         />
                         <label htmlFor="quick-sort">Quick Sort</label><br/>
-                        <input 
-                            type="radio" id="other-sort" name="algorithm"
-                            checked={algorithm === "other-sort"}
-                            value="other-sort" onChange={handleChange}
-                            />
-                        <label htmlFor="other-sort">Other Sort</label><br/>
                     </div>
 
                     <div className="form-section">

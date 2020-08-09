@@ -47,7 +47,7 @@ class ProdProvider extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // console.log("MEGA MEGA UPDATE", this.state )
+        console.log("MEGA MEGA UPDATE", this.state )
         if (prevState.raws !== this.state.raws || prevState.columns !== this.state.columns) {
         
         const { columns, raws } = this.state;
@@ -140,22 +140,16 @@ class ProdProvider extends Component {
     }
 
 
-/********** Sort Method **********/
+/********** Sorting Methods **********/
 
+/*** Bubble Sort ***/
     bubbleSort = async (array, ms) => {
-        console.log(ms)
-        const partsNbrs = [...array]
-
-        let noSwaps
-
-        const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-        const changeState = async () => {
-            await sleep(ms).then(() => setAsyncState({ partsNbrs }))
-        }
         
-        // from https://stackoverflow.com/questions/53409325/does-this-setstate-return-promise-in-react#:~:text=setState%20is%20usually%20not%20used,doesn't%20return%20a%20promise.
-        const setAsyncState = (newState) => new Promise( resolve => this.setState(newState, resolve))
+        const partsNbrs = [...array]
+        let noSwaps
+        const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+        const changeState = async () => { await sleep(ms).then(() => setAsyncState({ partsNbrs })) }
+        const setAsyncState = (newState) => new Promise( resolve => this.setState(newState, resolve))   // from https://stackoverflow.com/questions/53409325/does-this-setstate-return-promise-in-react#:~:text=setState%20is%20usually%20not%20used,doesn't%20return%20a%20promise.
 
         for (var i = partsNbrs.length; i > 0; i--) {
             noSwaps = true;
@@ -172,10 +166,39 @@ class ProdProvider extends Component {
         }
     }
 
+    insertionSort = ( array, ms ) => {
+        console.log("hello from insertion Sort")
+    }
 
+    mergeSort = ( array, ms ) => {
+        console.log("hello from Merge Sort")
+    }
+
+    quickSort = ( array, ms ) => {
+        console.log("hello from Quick Sort")
+    }
+
+/*** Sort ***/
     sort = () => {
+        const { algorithm, partsNbrs, speed } = this.state
         const speeds = [1000, 500, 225, 150, 75] // Sorting Speeds
-        this.bubbleSort(this.state.partsNbrs, speeds[this.state.speed])
+
+        switch (algorithm) {
+            case 'bubble-sort':
+                this.bubbleSort(partsNbrs, speeds[speed])
+                break;
+            case 'insertion-sort':
+                this.insertionSort(partsNbrs, speeds[speed])
+                break;
+            case 'merge-sort':
+                this.mergeSort(partsNbrs, speeds[speed])
+                break;
+            case 'quick-sort':
+                this.quickSort(partsNbrs, speeds[speed])
+                break;
+            default:
+                console.log("Sorry, we are out of Options :/");
+        }
     }
 
 
