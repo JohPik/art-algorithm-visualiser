@@ -12,7 +12,7 @@ export default function Painting(){
 
         return ( //Render Each individual images
             // v3
-            partsNbrs.map( part => <img src={paintingParts[part]} key={part} alt={`${altName} part number ${part}`} className="painting-part" style={{maxWidth: columnSize}}/> )
+            partsNbrs.map( part => <img src={paintingParts[part]} key={part} alt={`${altName} section`} className={`part-${part}`} style={{maxWidth: columnSize}}/> )
             // v2
             // paintingParts.map( part => <img key={part[0]} src={part[1]} alt={`${altName} part number ${part[0]}`} className="paiting-part" style={{maxWidth: columnSize}}/> )
             //v1 

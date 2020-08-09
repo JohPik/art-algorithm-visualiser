@@ -47,7 +47,7 @@ class ProdProvider extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log("MEGA MEGA UPDATE", this.state )
+        // console.log("MEGA MEGA UPDATE", this.state )
         if (prevState.raws !== this.state.raws || prevState.columns !== this.state.columns) {
         
         const { columns, raws } = this.state;
@@ -142,34 +142,60 @@ class ProdProvider extends Component {
 
 /********** Sorting Methods **********/
 
+
+/*** Required for Visual ***/
+    //Stop function execution for ms time
+    sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+    
+    //Manage Async nature of this.setState -> from https://stackoverflow.com/questions/53409325/does-this-setstate-return-promise-in-react#:~:text=setState%20is%20usually%20not%20used,doesn't%20return%20a%20promise.
+    setAsyncState = newState => new Promise( resolve => this.setState(newState, resolve))
+    
+    //Change state after waiting for sleep
+    changeState = async (partsNbrs, ms) => { await this.sleep(ms).then(() => this.setAsyncState({ partsNbrs }))} 
+
+
 /*** Bubble Sort ***/
     bubbleSort = async (array, ms) => {
-        
+
         const partsNbrs = [...array]
         let noSwaps
-        const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-        const changeState = async () => { await sleep(ms).then(() => setAsyncState({ partsNbrs })) }
-        const setAsyncState = (newState) => new Promise( resolve => this.setState(newState, resolve))   // from https://stackoverflow.com/questions/53409325/does-this-setstate-return-promise-in-react#:~:text=setState%20is%20usually%20not%20used,doesn't%20return%20a%20promise.
 
         for (var i = partsNbrs.length; i > 0; i--) {
             noSwaps = true;
-            for(var j = 0; j < i - 1; j++){
-                if(partsNbrs[j] > partsNbrs[j+1]){
+            for(var j = 0; j < i - 1; j++) {
+                if(partsNbrs[j] > partsNbrs[j+1]) {
                     var temp = partsNbrs[j];
                     partsNbrs[j] = partsNbrs[j+1];
                     partsNbrs[j+1] = temp;
-                    noSwaps = false;         
+                    noSwaps = false;
                 }
             }
-            await changeState()
+
+            await this.changeState(partsNbrs, ms)
             if(noSwaps) break;
+
         }
     }
 
-    insertionSort = ( array, ms ) => {
-        console.log("hello from insertion Sort")
-    }
+    insertionSort = async (array, ms) => {
+        const partsNbrs = [...array]
 
+        for (let i = 1; i < partsNbrs.length; i++) {
+            let key = partsNbrs[i]
+            let j = i - 1
+            while (j >= 0 && partsNbrs[j] > key) {
+                partsNbrs[j + 1] = partsNbrs[j]
+                j = j - 1
+            }
+
+            partsNbrs[j + 1] = key
+            await this.changeState(partsNbrs, ms)
+
+        }
+        
+        // return partsNbrs
+    }
+    
     mergeSort = ( array, ms ) => {
         console.log("hello from Merge Sort")
     }
