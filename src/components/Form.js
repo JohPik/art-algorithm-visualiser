@@ -1,5 +1,5 @@
 import React from 'react'
-import { ProductConsumer } from '../Context'
+import { ContextConsumer } from '../Context'
 
 export default function Form() {
     const renderForm = values => {
@@ -66,9 +66,9 @@ export default function Form() {
     }
     return (
         <section className="form-wrapper">
-            <ProductConsumer>
+            <ContextConsumer>
                 {value => renderForm(value)}
-            </ProductConsumer>
+            </ContextConsumer>
         </section>
     )
 }

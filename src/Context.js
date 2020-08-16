@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { PaintingsDatabase } from './ressources/PaintingsDatabase'
+import FrameDimension from './ressources/FrameDimension'
 
-const ProductContext = React.createContext()
+const Context = React.createContext()
 
-class ProdProvider extends Component {
+class Provider extends Component {
 
     state = {
         paintingList: [],
@@ -16,7 +17,7 @@ class ProdProvider extends Component {
         disable: false,
         paintingParts: [],
         partsNbrs: [],
-        partsNbrsMixed: []
+        artSizing: {}
     }
 
     componentDidMount() {
@@ -67,10 +68,19 @@ class ProdProvider extends Component {
     }
 
     setCurrentPainting = (value) => {
-        if(!value){
-            this.setState({
-                currentPainting: this.state.paintingList[0]
-            })
+            if(!value){
+            this.setState( () => {
+                return {currentPainting: this.state.paintingList[1]}
+                }
+                ,  () => {
+                    const { imgRelativeSize, 
+                            imgWidth, 
+                            imgHeight, 
+                            frameToArtPct, 
+                            frameToMatPct }  = this.state.currentPainting.sizing
+                    this.setState({ artSizing: FrameDimension(imgRelativeSize, imgWidth, imgHeight, frameToArtPct, frameToMatPct)})
+                }
+            )
         }
         // will need to make this smarter here !!!!!!!!!!!!!!!
     }
@@ -156,7 +166,6 @@ class ProdProvider extends Component {
 
 /*** Bubble Sort ***/
     bubbleSort = async (array, ms) => {
-
         const partsNbrs = [...array]
         let noSwaps
 
@@ -170,10 +179,8 @@ class ProdProvider extends Component {
                     noSwaps = false;
                 }
             }
-
             await this.changeState(partsNbrs, ms)
             if(noSwaps) break;
-
         }
     }
 
@@ -187,13 +194,10 @@ class ProdProvider extends Component {
                 partsNbrs[j + 1] = partsNbrs[j]
                 j = j - 1
             }
-
             partsNbrs[j + 1] = key
             await this.changeState(partsNbrs, ms)
 
         }
-        
-        // return partsNbrs
     }
     
     mergeSort = ( array, ms ) => {
@@ -207,7 +211,7 @@ class ProdProvider extends Component {
 /*** Sort ***/
     sort = () => {
         const { algorithm, partsNbrs, speed } = this.state
-        const speeds = [1000, 500, 225, 150, 75] // Sorting Speeds
+        const speeds = [500, 225, 150, 75, 25] // Sorting Speeds
 
         switch (algorithm) {
             case 'bubble-sort':
@@ -248,7 +252,7 @@ class ProdProvider extends Component {
     
     render() {
         return (
-            <ProductContext.Provider value={{
+            <Context.Provider value={{
                 ...this.state,
                 handleChange: this.handleChange,
                 handleSubmit: this.handleSubmit,
@@ -256,13 +260,14 @@ class ProdProvider extends Component {
                 sort: this.sort
                 }}>
                 {this.props.children}
-            </ProductContext.Provider>
+            </Context.Provider>
         )
     }
 }
 
-const ProductProvider = ProdProvider
+const ContextProvider = Provider
 
-const ProductConsumer = ProductContext.Consumer
+const ContextConsumer = Context.Consumer
 
-export { ProductProvider, ProductConsumer }
+export { ContextProvider, ContextConsumer }
+

@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 //import * as serviceWorker from './serviceWorker';
-import { ProductProvider } from './Context'
+import { ContextProvider } from './Context'
 
 ReactDOM.render(
   <React.StrictMode>
-    <ProductProvider>
+    <ContextProvider>
       <App />
-    </ProductProvider>
+    </ContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ProductConsumer } from '../Context'
+import { ContextConsumer } from '../Context'
 
 export default function InfoPlate(){
 
@@ -19,8 +19,8 @@ export default function InfoPlate(){
         )
     }
     return (
-        <ProductConsumer>
+        <ContextConsumer>
             {props => renderPainting(props)}
-        </ProductConsumer>
+        </ContextConsumer>
     )
 }

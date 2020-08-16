@@ -1,7 +1,7 @@
 import React from 'react'
-import { ProductConsumer } from '../Context'
+import { ContextConsumer } from '../Context'
 
-export default function Painting(){
+export default function Art(){
 
     const renderPainting = props => {
         const { paintingParts, columnSize, partsNbrs} = props
@@ -20,8 +20,8 @@ export default function Painting(){
         )
     }
     return (
-        <ProductConsumer>
+        <ContextConsumer>
             {props => renderPainting(props)}
-        </ProductConsumer>
+        </ContextConsumer>
     )
 }

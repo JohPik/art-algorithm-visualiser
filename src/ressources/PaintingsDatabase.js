@@ -1,8 +1,16 @@
 const PaintingsDatabase = [
     {   id: 1,
         name: 'Mona Lisa',
-        img: '/imgs/mona-lisa.jpg',
-        frameImg: 'TO DEFINE',
+        img: '/imgs/paintings/mona-lisa.jpg',
+        frameImg: '/imgs/frames/mona-lisa-frame.jpg',
+        frameHueBkgrd: 'rgba(229, 202, 174, 0)',
+        sizing: {
+            imgRelativeSize: 0.8,
+            imgWidth: 536,
+            imgHeight: 800,
+            frameToArtPct: 0.10,
+            frameToMatPct: 0
+        },
         otherName: ['Monna Lisa', 'La Gioconda', 'La Joconde'],
         artist: 'Leonardo Da Vinci',
         origin: 'Italy',
@@ -15,8 +23,16 @@ const PaintingsDatabase = [
     },
     {   id: 2,
         name: 'The Great Wave off Kanagawa',
-        img: 'TO DEFINE',
-        frameImg: 'TO DEFINE',
+        img: '/imgs/paintings/the-great-wave-of-kanagawa.jpg',
+        frameImg: '/imgs/frames/the-great-wave-of-kanagawa-frame.png',
+        frameHueBkgrd: '#e5caae',
+        sizing: {
+            imgRelativeSize: 0.8, 
+            imgWidth: 800, 
+            imgHeight: 538, 
+            frameToArtPct: 0.10, 
+            frameToMatPct: 0.025   
+        },
         otherName: ['神奈川沖浪裏', 'Under the Wave off Kanagawa', 'The Great Wave', 'The Wave'],
         artist: 'Katsushika Hokusai',
         origin: 'Japan',
