@@ -17,6 +17,7 @@ class Provider extends Component {
         disable: false,
         paintingParts: [],
         partsNbrs: [],
+        partsNbrsClone: [], //Save value before execution
         artSizing: {}
     }
 
@@ -233,8 +234,8 @@ class Provider extends Component {
 
 
 /********** Handle Form **********/
-    handleChange = e => {
-        if(e.target.type === "radio"){
+    /*handleChange = e => {
+        if(e.target.type === "radio"){ 
             this.setState({
                 algorithm : e.target.value
             })
@@ -242,6 +243,20 @@ class Provider extends Component {
             this.setState({
                 [e.target.name] : Number(e.target.value) 
             })
+        }
+    }*/
+
+    handleChange = e => {
+        const { type, value } = e.target
+        switch(type) {
+            case "number": // Number of Sections
+            this.setState({ [e.target.name] : Number(value) })
+            break;
+            case "radio": // Sorting Algorithm
+                this.setState({ algorithm : value })
+            break;
+            default: // Visualisation Speed
+                this.setState({ speed : Number(value) })
         }
     }
 
