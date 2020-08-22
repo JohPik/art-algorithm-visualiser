@@ -13,11 +13,14 @@ export default function Wall(){
             artLeftandRight, 
             artTopandBottom } = props.artSizing
 
-        const { frameImg } = props.currentPainting
+        const { frameImg, sizing } = props.currentPainting
+
+        const maxWidth = !sizing ? null : (sizing.imgWidth / (sizing.imgRelativeSize * 10)) * 10
+        console.log(maxWidth)
         
         return (
             <section className="wall-wrapper">
-                <div className="painting-container">
+                <div className="painting-container" style={{ maxWidth: maxWidth}}>
                     <div className="frame" style={{ backgroundImage: `url('${frameImg}')`, paddingBottom: frameAspectRatio + "%"}}>
                         <div className="mat" 
                             style={!matLeftandRight ? {position: "initial"} : {left: matLeftandRight + "%", right: matLeftandRight + "%", top: matTopAndBottom + "%", bottom: matTopAndBottom + "%"}}>

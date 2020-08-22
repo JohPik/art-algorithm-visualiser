@@ -70,7 +70,7 @@ class Provider extends Component {
     setCurrentPainting = (value) => {
             if(!value){
             this.setState( () => {
-                return {currentPainting: this.state.paintingList[1]}
+                return {currentPainting: this.state.paintingList[0]}
                 }
                 ,  () => {
                     const { imgRelativeSize, 
