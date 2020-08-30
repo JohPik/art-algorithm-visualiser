@@ -2,7 +2,7 @@ const PaintingsDatabase = [
     {   id: 1,
         name: 'Mona Lisa',
         img: '/imgs/paintings/mona-lisa.jpg',
-        frameImg: '/imgs/frames/mona-lisa-frame.jpg',
+        frameImg: '/imgs/frames/mona-lisa-frame2.jpg',
         frameHueBkgrd: 'rgba(229, 202, 174, 0)',
         sizing: {
             imgRelativeSize: 0.8,

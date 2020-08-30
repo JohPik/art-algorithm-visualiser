@@ -200,13 +200,44 @@ class Provider extends Component {
 
         }
     }
-    
+
     mergeSort = ( array, ms ) => {
         console.log("hello from Merge Sort")
     }
 
     quickSort = ( array, ms ) => {
-        console.log("hello from Quick Sort")
+
+        const partsNbrs = [...array]
+        
+        const partition = (partsNbrs, left, right) => {
+            // create pivot as middle value
+            const pivot = partsNbrs[Math.floor((right + left) / 2)]
+            while (left <= right) { 
+                while (partsNbrs[left] < pivot) { left++ }
+                while (partsNbrs[right] > pivot) { right-- }
+                if (left <= right) {
+                    // swap values using destructuring
+                    [partsNbrs[left], partsNbrs[right]] = [partsNbrs[right], partsNbrs[left]]
+                    left++
+                    right--
+                }
+            }
+            return left
+        }
+
+        const qckSort = async (partsNbrs, left = 0, right = array.length - 1) => {
+            let index
+            await this.changeState(partsNbrs, ms)
+            if (partsNbrs.length > 1) {
+              // create the partition (split the array)
+            index = partition(partsNbrs, left, right)
+                if (left < index - 1) qckSort(partsNbrs, left, index - 1) 
+                if (index < right) qckSort(partsNbrs, index, right)
+            }
+            await this.changeState(partsNbrs, ms)
+        }
+
+        qckSort(partsNbrs);
     }
 
 /*** Sort ***/
