@@ -49,9 +49,7 @@ class Provider extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // console.log("MEGA MEGA UPDATE", this.state )
         if (prevState.raws !== this.state.raws || prevState.columns !== this.state.columns) {
-        
         const { columns, raws } = this.state;
         const currentPainting = this.state.currentPainting.img
         this.splitPainting(currentPainting, columns, raws);
@@ -201,9 +199,110 @@ class Provider extends Component {
         }
     }
 
-    mergeSort = ( array, ms ) => {
-        console.log("hello from Merge Sort")
+    /*
+    // CHANGE TO HEAP SORT
+    heapSort = async (array, ms) => {
+        const partsNbrs = [...array]
+        
+        let size = partsNbrs.length
+
+        const heapify = (partsNbrs, size, i) => {
+        let max = i, // initialize max as root
+            left = 2 * i + 1,
+            right = 2 * i + 2;
+        
+            // if left child is larger than root
+            if (left < size && partsNbrs[left] > partsNbrs[max]){
+                max = left
+            }
+            // if right child is larger than max
+            if (right < size && partsNbrs[right] > partsNbrs[max]){
+                max = right
+            }
+            // if max is not root
+            if (max != i) {
+                // swap
+                let temp = partsNbrs[i]
+                partsNbrs[i] = partsNbrs[max]
+                partsNbrs[max] = temp
+                // recursively heapify the affected sub-tree
+                heapify(partsNbrs, size, max)
+            }
+        
+        }
+
+        // build heapSort (rearrange partsNbrs)
+        for (let i = Math.floor(size / 2 - 1); i >= 0; i--){
+            heapify(partsNbrs, size, i)
+        }
+
+        // one by one extract an element from heapSort
+        for (let i = size - 1; i >= 0; i--) {
+        // move current root to end
+            let temp = partsNbrs[0]
+            partsNbrs[0] = partsNbrs[i]
+            partsNbrs[i] = temp
+            
+        // call max heapify on the reduced heapSort
+            heapify(partsNbrs, i, 0)
+            await this.changeState(partsNbrs, ms)
+        }
+        return 
     }
+    */
+
+    mergeSort = (array, ms) => {
+        const partsNbrs = [...array]
+        let partsNbrsObject = partsNbrs.map( (val, ind) => { return {val, ind}})
+
+        //Allowing to visualise merge sort
+        const animation = async (result) => {
+            let values = []
+            let index = [] 
+    
+            result.forEach( el => {
+                values.push(el.val)
+                index.push(el.ind)
+            })
+    
+            let sortedIndex = [...index].sort((a, b) => a - b)
+    
+            if (JSON.stringify(index) !== JSON.stringify(sortedIndex)) {
+                console.log("problem comes here")
+                 partsNbrs.splice( Math.min(...index), index.length, ...values)
+                await this.changeState(partsNbrs, ms)
+            }
+
+            return values.map( (val, i) => { return { val, ind: sortedIndex[i] }})
+        }
+
+    
+        // Merge Sort and Merge Method
+        const merge =  (arr1, arr2) => {
+            let sorted = []
+
+            while (arr1.length && arr2.length) {
+                if (arr1[0].val < arr2[0].val) sorted.push(arr1.shift())
+                else sorted.push(arr2.shift())
+            };
+            
+            let result = sorted.concat(arr1.slice().concat(arr2.slice()));
+            
+            return animation(result)
+        }
+
+        const mergeSort = async (arr) => { 
+            if (arr.length <= 1) return arr
+            let mid = Math.floor(arr.length / 2)
+            let left = await mergeSort(arr.slice(0, mid))
+            let right = await mergeSort(arr.slice(mid))
+            return merge(left, right);
+        }
+
+        mergeSort(partsNbrsObject)
+    }
+
+
 
     quickSort = ( array, ms ) => {
 
