@@ -165,9 +165,6 @@ class Provider extends Component {
 
 /*** Bubble Sort ***/
     bubbleSort = async (array, ms) => {
-
-        this.setState({ disableForm: true} )
-
         const partsNbrs = [...array]
         let noSwaps
 
@@ -184,8 +181,6 @@ class Provider extends Component {
             await this.changeState(partsNbrs, ms)
             if(noSwaps) break;
         }
-
-        this.setState({ disableForm: false} )
     }
 
 /*** Insertion Sort ***/
@@ -206,7 +201,7 @@ class Provider extends Component {
     }
 
 /*** Merge Sort ***/
-    mergeSort = (array, ms) => {
+    mergeSort = async (array, ms) => {
         const partsNbrs = [...array]
         let partsNbrsObject = partsNbrs.map( (val, ind) => { return {val, ind}})
 
@@ -223,7 +218,6 @@ class Provider extends Component {
             let sortedIndex = [...index].sort((a, b) => a - b)
     
             if (JSON.stringify(index) !== JSON.stringify(sortedIndex)) {
-                console.log("problem comes here")
                 partsNbrs.splice( Math.min(...index), index.length, ...values)
                 await this.changeState(partsNbrs, ms)
             }
@@ -254,13 +248,12 @@ class Provider extends Component {
             return merge(left, right);
         }
 
-        mergeSort(partsNbrsObject)
+        await mergeSort(partsNbrsObject)
     }
 
 
 /*** Quick Sort ***/
-    quickSort = ( array, ms ) => {
-
+    quickSort = async (array, ms) => {
         const partsNbrs = [...array]
         
         const partition = (partsNbrs, left, right) => {
@@ -283,15 +276,15 @@ class Provider extends Component {
             let index
             await this.changeState(partsNbrs, ms)
             if (partsNbrs.length > 1) {
-              // create the partition (split the array)
+            // create the partition (split the array)
             index = partition(partsNbrs, left, right)
-                if (left < index - 1) qckSort(partsNbrs, left, index - 1) 
-                if (index < right) qckSort(partsNbrs, index, right)
+                if (left < index - 1) await qckSort(partsNbrs, left, index - 1) 
+                if (index < right) await qckSort(partsNbrs, index, right)
             }
-            await this.changeState(partsNbrs, ms)
+            // await this.changeState(partsNbrs, ms)
         }
 
-        qckSort(partsNbrs);
+        await qckSort(partsNbrs)
     }
 
 /*** Sort ***/
@@ -299,22 +292,33 @@ class Provider extends Component {
         const { algorithm, partsNbrs, speed } = this.state
         const speeds = [500, 225, 150, 75, 25] // Sorting Speeds
 
-        switch (algorithm) {
-            case 'bubble-sort':
-                this.bubbleSort(partsNbrs, speeds[speed])
-                break;
-            case 'insertion-sort':
-                this.insertionSort(partsNbrs, speeds[speed])
-                break;
-            case 'merge-sort':
-                this.mergeSort(partsNbrs, speeds[speed])
-                break;
-            case 'quick-sort':
-                this.quickSort(partsNbrs, speeds[speed])
-                break;
-            default:
-                console.log("Sorry, we are out of Options :/");
+        // Form Management during Sorting
+        const desactivateForm = async () => await this.setAsyncState({ disableForm: true })
+        const activateForm = async () => await this.setAsyncState({ disableForm: false })
+
+        // Select Sorting Methof
+        const selectAlgorithm = async () => {
+            switch (algorithm) {
+                case 'bubble-sort':
+                    await this.bubbleSort(partsNbrs, speeds[speed])
+                    break;
+                case 'insertion-sort':
+                    await this.insertionSort(partsNbrs, speeds[speed])
+                    break;
+                case 'merge-sort':
+                    await this.mergeSort(partsNbrs, speeds[speed])
+                    break;
+                case 'quick-sort':
+                    await this.quickSort(partsNbrs, speeds[speed])
+                    break;
+                default:
+                    console.log("Sorry, we are out of Options :/");
+            }
         }
+
+        desactivateForm()
+        .then( () => selectAlgorithm(algorithm) )
+        .then( () => activateForm())
     }
 
 

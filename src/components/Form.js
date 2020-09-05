@@ -3,7 +3,6 @@ import { ContextConsumer } from '../Context'
 
 export default function Form() {
     const renderForm = values => {
-        console.log("values", values)
         const {raws, columns, algorithm, speed, handleChange, handleSubmit, shuffle, sort, disableForm}  = values;
         const speedVariant = ["very slow", "slow", "normal", "fast", "very fast"]
         
