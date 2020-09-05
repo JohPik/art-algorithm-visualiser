@@ -14,7 +14,7 @@ class Provider extends Component {
         columnSize: "100%",
         algorithm: "bubble-sort",
         speed: 2,
-        disable: false,
+        disableForm: false,
         paintingParts: [],
         partsNbrs: [],
         partsNbrsClone: [], //Save value before execution
@@ -165,6 +165,9 @@ class Provider extends Component {
 
 /*** Bubble Sort ***/
     bubbleSort = async (array, ms) => {
+
+        this.setState({ disableForm: true} )
+
         const partsNbrs = [...array]
         let noSwaps
 
@@ -181,8 +184,11 @@ class Provider extends Component {
             await this.changeState(partsNbrs, ms)
             if(noSwaps) break;
         }
+
+        this.setState({ disableForm: false} )
     }
 
+/*** Insertion Sort ***/
     insertionSort = async (array, ms) => {
         const partsNbrs = [...array]
 
@@ -199,58 +205,7 @@ class Provider extends Component {
         }
     }
 
-    /*
-    // CHANGE TO HEAP SORT
-    heapSort = async (array, ms) => {
-        const partsNbrs = [...array]
-        
-        let size = partsNbrs.length
-
-        const heapify = (partsNbrs, size, i) => {
-        let max = i, // initialize max as root
-            left = 2 * i + 1,
-            right = 2 * i + 2;
-        
-            // if left child is larger than root
-            if (left < size && partsNbrs[left] > partsNbrs[max]){
-                max = left
-            }
-            // if right child is larger than max
-            if (right < size && partsNbrs[right] > partsNbrs[max]){
-                max = right
-            }
-            // if max is not root
-            if (max != i) {
-                // swap
-                let temp = partsNbrs[i]
-                partsNbrs[i] = partsNbrs[max]
-                partsNbrs[max] = temp
-                // recursively heapify the affected sub-tree
-                heapify(partsNbrs, size, max)
-            }
-        
-        }
-
-        // build heapSort (rearrange partsNbrs)
-        for (let i = Math.floor(size / 2 - 1); i >= 0; i--){
-            heapify(partsNbrs, size, i)
-        }
-
-        // one by one extract an element from heapSort
-        for (let i = size - 1; i >= 0; i--) {
-        // move current root to end
-            let temp = partsNbrs[0]
-            partsNbrs[0] = partsNbrs[i]
-            partsNbrs[i] = temp
-            
-        // call max heapify on the reduced heapSort
-            heapify(partsNbrs, i, 0)
-            await this.changeState(partsNbrs, ms)
-        }
-        return 
-    }
-    */
-
+/*** Merge Sort ***/
     mergeSort = (array, ms) => {
         const partsNbrs = [...array]
         let partsNbrsObject = partsNbrs.map( (val, ind) => { return {val, ind}})
@@ -269,7 +224,7 @@ class Provider extends Component {
     
             if (JSON.stringify(index) !== JSON.stringify(sortedIndex)) {
                 console.log("problem comes here")
-                 partsNbrs.splice( Math.min(...index), index.length, ...values)
+                partsNbrs.splice( Math.min(...index), index.length, ...values)
                 await this.changeState(partsNbrs, ms)
             }
 
@@ -303,7 +258,7 @@ class Provider extends Component {
     }
 
 
-
+/*** Quick Sort ***/
     quickSort = ( array, ms ) => {
 
         const partsNbrs = [...array]
@@ -364,18 +319,6 @@ class Provider extends Component {
 
 
 /********** Handle Form **********/
-    /*handleChange = e => {
-        if(e.target.type === "radio"){ 
-            this.setState({
-                algorithm : e.target.value
-            })
-        } else { //change string to a number
-            this.setState({
-                [e.target.name] : Number(e.target.value) 
-            })
-        }
-    }*/
-
     handleChange = e => {
         const { type, value } = e.target
         switch(type) {
