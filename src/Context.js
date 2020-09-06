@@ -12,6 +12,7 @@ class Provider extends Component {
         raws: 1,
         columns: 1,
         columnSize: "100%",
+        rawSize: "100%",
         algorithm: "bubble-sort",
         speed: 2,
         disableForm: false,
@@ -123,7 +124,7 @@ class Provider extends Component {
             }
 
             //step 3 Add Splited Pictures to State
-            this.setState({ paintingParts, partsNbrs ,columnSize: `${100/cols}%` })
+            this.setState({ paintingParts, partsNbrs ,columnSize: `${100/cols}%`, rawSize: `${100/raws}%`  })
         }
     
         img.onload = (() => split(cols,raws));
@@ -293,8 +294,8 @@ class Provider extends Component {
         const speeds = [500, 225, 150, 75, 25] // Sorting Speeds
 
         // Form Management during Sorting
-        const desactivateForm = async () => await this.setAsyncState({ disableForm: true })
-        const activateForm = async () => await this.setAsyncState({ disableForm: false })
+        const desactivateForm = async () => { await this.setAsyncState({ disableForm: true }) }
+        const activateForm = async () => { await this.setAsyncState({ disableForm: false }) }
 
         // Select Sorting Methof
         const selectAlgorithm = async () => {
