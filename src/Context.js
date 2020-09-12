@@ -23,30 +23,18 @@ class Provider extends Component {
     }
 
     componentDidMount() {
-        //Save copy of Painting List 
-        const stepZero =  () => {
-            return new Promise( resolve => {
-                this.setPaintingsList()
-                resolve();
-            })
-        }
-        //Save copy of Painting List
-        const stepOne = () => { 
-            return new Promise( resolve => {
-                this.setCurrentPainting()
-                resolve();
-            });
-        }
-        //Split Painting In Equal Parts
-        const stepTwo = () => {
-            return new Promise( resolve => {
-                const { columns, raws } = this.state;
-                const currentPainting = this.state.currentPainting.img
-                this.splitPainting(currentPainting, columns, raws);
-                resolve();
-            });
-        }
-        stepZero().then(stepOne).then(stepTwo)
+
+    /*** Retrieve data from ressources & assigned current painting ****/
+    const setPaintingsList = async () => {
+        let tempPainting = []
+        PaintingsDatabase.forEach( paint => {
+        let singlePaint = { ...paint }
+        tempPainting = [ ...tempPainting, singlePaint]
+        })
+        await this.setState({ paintingList: tempPainting })
+    }
+        
+        setPaintingsList().then(this.changePainting)
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -57,32 +45,48 @@ class Provider extends Component {
         }
     }
 
-/********** Retrieve data from ressources & assigned current painting **********/
-    setPaintingsList = () => {
-        let tempPainting = []
-        PaintingsDatabase.forEach( paint => {
-        let singlePaint = { ...paint }
-        tempPainting = [ ...tempPainting, singlePaint]
-        })
-        this.setState({ paintingList: tempPainting })
-    }
+/********** Change Painting **********/
+    changePainting = (e) => {
+        //Save copy of Painting List
 
-    setCurrentPainting = (value) => {
-            if(!value){
-            this.setState( () => {
-                return {currentPainting: this.state.paintingList[0]}
+        const setCurrentPainting = async (value) => {
+            
+            let { id } = this.state.currentPainting
+
+            const setPainting = (e) => {
+                    this.setState( () => { 
+                            return { currentPainting: this.state.paintingList[e] } 
+                                },  () => {
+                                    const { imgRelativeSize, imgWidth, imgHeight, frameToArtPct, frameToMatPct }  = this.state.currentPainting.sizing
+                                    this.setState({ artSizing: FrameDimension(imgRelativeSize, imgWidth, imgHeight, frameToArtPct, frameToMatPct)})
+                                })
                 }
-                ,  () => {
-                    const { imgRelativeSize, 
-                            imgWidth, 
-                            imgHeight, 
-                            frameToArtPct, 
-                            frameToMatPct }  = this.state.currentPainting.sizing
-                    this.setState({ artSizing: FrameDimension(imgRelativeSize, imgWidth, imgHeight, frameToArtPct, frameToMatPct)})
-                }
-            )
+                
+            switch (value) {
+                case "next":
+                    await setPainting(id + 1)
+                    break;
+                case "previous":
+                    await setPainting(id - 1)
+                    break;
+                default:
+                    await setPainting(0)
+                    break;
+            }
+    
         }
-        // will need to make this smarter here !!!!!!!!!!!!!!!
+
+        //Split Painting In Equal Parts
+        const splitCurrentPainting = () => {
+            return new Promise( resolve => {
+                const { columns, raws } = this.state;
+                const currentPainting = this.state.currentPainting.img
+                this.splitPainting(currentPainting, columns, raws);
+                resolve();
+            });
+        }
+
+        setCurrentPainting(e).then(splitCurrentPainting)
     }
 
 
@@ -115,12 +119,6 @@ class Provider extends Component {
                 //add sliced image to temporary paintingParts array
                 paintingParts.push( canvas.toDataURL() );
                 partsNbrs.push( i );
-                
-                // paintingParts.push( [ i, canvas.toDataURL() ] );
-                // const tempPart = {};
-                //tempPart[i] = canvas.toDataURL();
-                //paintingParts.push(tempPart)
-                // paintingParts.push( canvas.toDataURL() );
             }
 
             //step 3 Add Splited Pictures to State
@@ -350,7 +348,8 @@ class Provider extends Component {
                 handleChange: this.handleChange,
                 handleSubmit: this.handleSubmit,
                 shuffle: this.shuffle,
-                sort: this.sort
+                sort: this.sort,
+                changePainting: this.changePainting
                 }}>
                 {this.props.children}
             </Context.Provider>

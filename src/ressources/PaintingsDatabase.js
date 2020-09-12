@@ -1,9 +1,8 @@
 const PaintingsDatabase = [
-    {   id: 1,
+    {   id: 0,
         name: 'Mona Lisa',
         img: '/imgs/paintings/mona-lisa.jpg',
-        frameImg: '/imgs/frames/mona-lisa-frame2.jpg',
-        frameHueBkgrd: 'rgba(229, 202, 174, 0)',
+        frameImg: '/imgs/frames/mona-lisa-frame.jpg',
         sizing: {
             imgRelativeSize: 0.8,
             imgWidth: 536,
@@ -21,11 +20,10 @@ const PaintingsDatabase = [
         link: 'https://en.wikipedia.org/wiki/Mona_Lisa',
         artistLink: 'https://en.wikipedia.org/wiki/Leonardo_da_Vinci'
     },
-    {   id: 2,
+    {   id: 1,
         name: 'The Great Wave off Kanagawa',
         img: '/imgs/paintings/the-great-wave-of-kanagawa.jpg',
-        frameImg: '/imgs/frames/the-great-wave-of-kanagawa-frame.png',
-        frameHueBkgrd: '#e5caae',
+        frameImg: '/imgs/frames/the-great-wave-of-kanagawa-frame.jpg',
         sizing: {
             imgRelativeSize: 0.8, 
             imgWidth: 800, 
@@ -43,10 +41,17 @@ const PaintingsDatabase = [
         link: 'https://en.wikipedia.org/wiki/The_Great_Wave_off_Kanagawa',
         artistLink: 'https://en.wikipedia.org/wiki/Hokusai'
     },
-    {   id: 3,
+    {   id: 2,
         name: 'The Starry Night',
-        img: 'TO DEFINE',
-        frameImg: 'TO DEFINE',
+        img: '/imgs/paintings/starry-night.jpg',
+        frameImg: '/imgs/frames/starry-night-frame.jpg',
+        sizing: {
+            imgRelativeSize: 0.8,
+            imgWidth: 800,
+            imgHeight: 631,
+            frameToArtPct: 0.10,
+            frameToMatPct: 0.05
+        },          
         otherName: [],
         artist: '	Vincent Van Gogh',
         origin: 'Holland',
@@ -57,10 +62,17 @@ const PaintingsDatabase = [
         link: 'https://en.wikipedia.org/wiki/The_Starry_Night',
         artistLink: 'https://en.wikipedia.org/wiki/Vincent_van_Gogh'
     },
-    {   id: 4,
+    {   id: 3,
         name: 'The Raft of the Medusa',
-        img: 'TO DEFINE',
-        frameImg: 'TO DEFINE',
+        img: '/imgs/paintings/medusa.jpg',
+        frameImg: '/imgs/frames/medusa-frame.jpg',
+        sizing: {
+            imgRelativeSize: 0.9,
+            imgWidth: 900,
+            imgHeight: 612,
+            frameToArtPct: 0.05,
+            frameToMatPct: 0
+        },      
         otherName: ['Le Radeau de la Méduse', 'Scène de Naufrage'],
         artist: '	Théodore Géricault',
         origin: 'France',
@@ -71,10 +83,17 @@ const PaintingsDatabase = [
         link: 'https://en.wikipedia.org/wiki/The_Raft_of_the_Medusa',
         artistLink: 'https://en.wikipedia.org/wiki/Th%C3%A9odore_G%C3%A9ricault'
     },
-    {   id: 5,
+    {   id: 4,
         name: 'American Gothic',
-        img: 'TO DEFINE',
-        frameImg: 'TO DEFINE',
+        img: '/imgs/paintings/american-gothic.jpg',
+        frameImg: '/imgs/frames/american-gothic-frame.jpg',
+        sizing: {
+            imgRelativeSize: 0.8,
+            imgWidth: 560,
+            imgHeight: 675,
+            frameToArtPct: 0.10,
+            frameToMatPct: 0.3
+        },        
         otherName: ['American Gothic House'],
         artist: 'Grant Wood',
         origin: 'USA',

@@ -6,6 +6,9 @@ import InfoPlate from './InfoPlate'
 export default function Wall(){
 
     const renderWall = props => {
+        console.log("Wall", props)
+        
+        const changeArt = props.changePainting
 
         const { frameAspectRatio, 
             matLeftandRight, 
@@ -13,7 +16,7 @@ export default function Wall(){
             artLeftandRight, 
             artTopandBottom } = props.artSizing
 
-        const { frameImg, sizing } = props.currentPainting
+        const { frameImg, sizing } = props.currentPainting 
 
         const maxWidth = !sizing ? null : (sizing.imgWidth / (sizing.imgRelativeSize * 10)) * 10
         // console.log(maxWidth)     
@@ -21,6 +24,7 @@ export default function Wall(){
         return (
             <section className="wall-wrapper">
                 <div className="painting-container" style={{ maxWidth: (maxWidth * 1.1) }}>
+                <button onClick={() => changeArt("previous")}>Backward</button>
                     <div className="frame" style={{ backgroundImage: `url('${frameImg}')`, paddingBottom: frameAspectRatio + "%"}}>
                         <div className="mat" 
                             style={!matLeftandRight ? {position: "initial"} : {left: matLeftandRight + "%", right: matLeftandRight + "%", top: matTopAndBottom + "%", bottom: matTopAndBottom + "%"}}>
@@ -31,6 +35,7 @@ export default function Wall(){
                             </div>
                         </div>
                     </div>
+                <button onClick={() => changeArt("next")}>Forward</button>
             </div>
             <InfoPlate/>
             </section>
