@@ -9,6 +9,7 @@ $Blue: #71A3FF;
 $Pink: #FCC8FA;
 
 
+
 //Main Fonts
 $FontLora: 'Lora', serif;
 $FontCode: 'Source Code Pro', monospace;
@@ -32,7 +33,6 @@ $FontCode: 'Source Code Pro', monospace;
 .logo:before {
   top: 27px;
   content: "";
-  background-color: $Yellow;
   position: absolute;
   left: 0;
   width: 100px;
@@ -82,7 +82,6 @@ $FontCode: 'Source Code Pro', monospace;
 .frame {
   position: relative;
   width: 100%;
-  background: #e5caae;
   box-shadow: 0 10px 7px -5px rgba(0, 0, 0, 0.3);
   background-size: cover;
 }
@@ -113,7 +112,6 @@ $FontCode: 'Source Code Pro', monospace;
 
 /********** Form **********/
 .form-wrapper {
-  background-color: $Yellow;
   position: absolute;
   height: 100%;
   width: 215px;
@@ -176,5 +174,25 @@ form {
     font-weight: bold;
     font-size: .8em;
   }
+}
 
+/********** custom coloring **********/
+.yellow, .yellow::before {
+  background-color: $Yellow;
+}
+
+.turquoise, .turquoise::before {
+  background-color: $Turquoise;
+}
+
+.green, .green::before {
+  background-color: $Green;
+}
+
+.blue, .blue::before {
+  background-color: $Blue;
+}
+
+.pink, .pink::before {
+  background-color: $Pink;
 }

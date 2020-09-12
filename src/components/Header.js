@@ -1,9 +1,22 @@
 import React from 'react'
+import { ContextConsumer } from '../Context'
 
-export default function Header(){
+export default function Header(props){
+
+    const renderPainting = props => {
+        
+        const color = props.currentPainting.colorApp || "yellow"
+        return (
+            <div className={`logo ${color}`}>
+                <img src="/imgs/logo-artgorithm.svg" alt="Artgorithm logo"/> 
+            </div>
+        )
+    }
+
     return (
-        <div className="logo">
-            <img src="/imgs/logo-artgorithm.svg" alt="Artgorithm logo"/> 
-        </div>
+        <ContextConsumer>
+            {props => renderPainting(props)}
+        </ContextConsumer>
     )
 }
+

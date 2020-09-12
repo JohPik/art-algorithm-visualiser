@@ -2,12 +2,14 @@ import React from 'react'
 import { ContextConsumer } from '../Context'
 
 export default function Form() {
-    const renderForm = values => {
-        const {raws, columns, algorithm, speed, handleChange, handleSubmit, shuffle, sort, disableForm}  = values;
+    const renderForm = props => {
+        const {raws, columns, algorithm, speed, handleChange, handleSubmit, shuffle, sort, disableForm}  = props;
         const speedVariant = ["very slow", "slow", "normal", "fast", "very fast"]
+        const color = props.currentPainting.colorApp || "yellow"
         
         return (
-            <form onSubmit={handleSubmit}>
+            <section className={`form-wrapper ${color}`}>
+                <form onSubmit={handleSubmit}>
                     <div className="form-section">
                         <h3>Number of Sections</h3>
                         <p>Divide painting in equal sections.</p>
@@ -56,7 +58,7 @@ export default function Form() {
                         <p>Select the speed of sorting algorithm.</p>
                         <input type="range" id="speed" name="speed" min="0" max="4" value={speed} onChange={handleChange} disabled={disableForm ? "disabled" : null}/>
                         <br/>
-                        <label htmlFor="speed">current speed:</label>
+                        <label htmlFor="speed" style={{paddingLeft: "0"}}>current speed:</label>
                         <p className="speed-tag">{speedVariant[speed]}</p>               
                     </div>
 
@@ -65,13 +67,11 @@ export default function Form() {
                         <button className="full-button" onClick={sort} disabled={disableForm ? "disabled" : null}>Sort</button>
                     </div>
                 </form>
-        )
+            </section>        )
     }
     return (
-        <section className="form-wrapper">
-            <ContextConsumer>
-                {value => renderForm(value)}
-            </ContextConsumer>
-        </section>
+        <ContextConsumer>
+            {props => renderForm(props)}
+        </ContextConsumer>
     )
 }

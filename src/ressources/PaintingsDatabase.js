@@ -10,6 +10,7 @@ const PaintingsDatabase = [
             frameToArtPct: 0.10,
             frameToMatPct: 0
         },
+        colorApp: "yellow",
         otherName: ['Monna Lisa', 'La Gioconda', 'La Joconde'],
         artist: 'Leonardo Da Vinci',
         origin: 'Italy',
@@ -31,6 +32,7 @@ const PaintingsDatabase = [
             frameToArtPct: 0.10, 
             frameToMatPct: 0.025   
         },
+        colorApp: "turquoise",
         otherName: ['神奈川沖浪裏', 'Under the Wave off Kanagawa', 'The Great Wave', 'The Wave'],
         artist: 'Katsushika Hokusai',
         origin: 'Japan',
@@ -51,7 +53,8 @@ const PaintingsDatabase = [
             imgHeight: 631,
             frameToArtPct: 0.10,
             frameToMatPct: 0.05
-        },          
+        },
+        colorApp: "blue",          
         otherName: [],
         artist: '	Vincent Van Gogh',
         origin: 'Holland',
@@ -73,6 +76,7 @@ const PaintingsDatabase = [
             frameToArtPct: 0.05,
             frameToMatPct: 0
         },      
+        colorApp: "green",          
         otherName: ['Le Radeau de la Méduse', 'Scène de Naufrage'],
         artist: '	Théodore Géricault',
         origin: 'France',
@@ -92,8 +96,9 @@ const PaintingsDatabase = [
             imgWidth: 560,
             imgHeight: 675,
             frameToArtPct: 0.10,
-            frameToMatPct: 0.3
-        },        
+            frameToMatPct: 0.03
+        },  
+        colorApp: "pink",                
         otherName: ['American Gothic House'],
         artist: 'Grant Wood',
         origin: 'USA',

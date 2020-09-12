@@ -6,8 +6,7 @@ import InfoPlate from './InfoPlate'
 export default function Wall(){
 
     const renderWall = props => {
-        console.log("Wall", props)
-        
+
         const changeArt = props.changePainting
 
         const { frameAspectRatio, 
@@ -18,8 +17,9 @@ export default function Wall(){
 
         const { frameImg, sizing } = props.currentPainting 
 
-        const maxWidth = !sizing ? null : (sizing.imgWidth / (sizing.imgRelativeSize * 10)) * 10
-        // console.log(maxWidth)     
+        const maxWidth = !sizing ? null : (sizing.imgWidth / (sizing.imgRelativeSize * 10)) * 10 
+
+        const roundNum = (num) => (Math.round(num * 10) / 10) - 0.1
         
         return (
             <section className="wall-wrapper">
@@ -27,7 +27,13 @@ export default function Wall(){
                 <button onClick={() => changeArt("previous")}>Backward</button>
                     <div className="frame" style={{ backgroundImage: `url('${frameImg}')`, paddingBottom: frameAspectRatio + "%"}}>
                         <div className="mat" 
-                            style={!matLeftandRight ? {position: "initial"} : {left: matLeftandRight + "%", right: matLeftandRight + "%", top: matTopAndBottom + "%", bottom: matTopAndBottom + "%"}}>
+                            style={!matLeftandRight ? {
+                                position: "initial"} : {
+                                    left: roundNum(matLeftandRight) + "%", 
+                                    right: roundNum(matLeftandRight) + "%", 
+                                    top: roundNum(matTopAndBottom) + "%", 
+                                    bottom: roundNum(matTopAndBottom) + "%"
+                                    }}>
                             <div className="art"
                                 style={{left: artLeftandRight + "%", right: artLeftandRight + "%", 
                                         top: artTopandBottom + "%", bottom: artTopandBottom + "%"}}>
