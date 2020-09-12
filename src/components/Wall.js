@@ -17,17 +17,20 @@ export default function Wall(){
 
         const { frameImg, sizing, id } = props.currentPainting 
 
+        const disable = props.disableForm
+
         // const maxWidth = !sizing ? null : (sizing.imgWidth / (sizing.imgRelativeSize * 10)) * 10 
-        const maxWidth = !sizing ? null : sizing.imgWidth
+        const maxWidth = !sizing ? null : sizing.imgWidth * 0.9
         
         console.log("maxWidth", maxWidth)
-
-        const roundNum = (num) => (Math.round(num * 10) / 10) - 0.1
+        
+        //Round Number and decreast by 0.2 to delete extra pixel when resizing painting dinamically
+        const roundNum = (num) => (Math.round(num * 10) / 10) - 0.2
         
         return (
             <section className="wall-wrapper">
                 <div className="painting-container" style={{ maxWidth }}>
-                { id ?  <button onClick={() => changeArt("previous")}>Backward</button> : null }
+                    { id ?  <button className="previous" disabled={disable ? "disabled" : null} onClick={() => changeArt("previous")}>&#8249;</button> : null }
                     <div className="frame" style={{ backgroundImage: `url('${frameImg}')`, paddingBottom: frameAspectRatio + "%"}}>
                         <div className="mat" 
                             style={!matLeftandRight ? {
@@ -44,9 +47,9 @@ export default function Wall(){
                             </div>
                         </div>
                     </div>
-                { id !== 4 ?  <button onClick={() => changeArt("next")}>Forward</button> : null }
-            </div>
-            <InfoPlate/>
+                    { id !== 4 ?  <button className="next" disabled={disable ? "disabled" : null} onClick={() => changeArt("next")}>&#8250;</button> : null }
+                    <InfoPlate/>
+                </div>
             </section>
         )
     }    

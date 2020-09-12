@@ -67,7 +67,8 @@ export default function Form() {
                         <button className="full-button" onClick={sort} disabled={disableForm ? "disabled" : null}>Sort</button>
                     </div>
                 </form>
-            </section>        )
+            </section>
+        )
     }
     return (
         <ContextConsumer>

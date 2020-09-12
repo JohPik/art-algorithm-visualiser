@@ -27,7 +27,6 @@ $FontCode: 'Source Code Pro', monospace;
 /********** Logo **********/
 .logo {
   position: absolute;
-  
 }
 
 .logo:before {
@@ -38,6 +37,7 @@ $FontCode: 'Source Code Pro', monospace;
   width: 100px;
   height: 50px;
   z-index: 1;
+  transition: all 0.3s ease-in;
 }
 
 .logo img {
@@ -64,19 +64,40 @@ $FontCode: 'Source Code Pro', monospace;
 .wall-wrapper {
   width: calc(100% - 215px);
   text-align: center;
-
-  // Temporary
-  img {
-    // max-width: 100%;
-  }
 }
 
 /********** Frame, Mat and Art **********/
 .painting-container {
+  position: relative;
   width: 100%;
   margin: auto;
-  padding: 120px;
   padding-bottom: 0px;
+  transition: all 0.3s ease-in;
+
+  button {
+    position: absolute;
+    top: 50%;
+    transform: translate(0%, -50%);
+    font-weight: bold;
+    font-size: 2em;
+    padding: 0;
+    border: none;
+    padding: 20px;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .previous {
+    position: absolute;
+    top: 50%;
+    left: -100px;
+    transform: translate(0%, -50%);
+  }
+
+  .next {
+    right: -100px;
+  }
 }
 
 .frame {
@@ -109,6 +130,21 @@ $FontCode: 'Source Code Pro', monospace;
   box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.5) inset;
 }
 
+/********** Info Plate **********/
+.info-plate {
+    text-align: left;
+    font-style: italic;
+    font-size: .8em;
+    position: absolute;
+    bottom: -80px;    
+
+    a {
+      font-size: 1em;
+      text-decoration: none;
+      font-weight: bold;
+      color:$Black;
+    }
+}
 
 /********** Form **********/
 .form-wrapper {
@@ -117,6 +153,7 @@ $FontCode: 'Source Code Pro', monospace;
   width: 215px;
   right: 0;
   top: 0;
+  transition: all 0.3s ease-in;
 }
 
 form {
@@ -138,6 +175,10 @@ form {
     padding-bottom: 14px;
   }
 
+  input {
+    cursor: pointer;
+  }
+  
   input[type=number] {
     margin-bottom: 8px;
     border: solid white 1px;
@@ -162,6 +203,7 @@ form {
     border: 2px solid #FFFFFF;
     box-sizing: border-box;
     border-radius: 5px;
+    cursor: pointer;
   }
 
   .shadow-button {

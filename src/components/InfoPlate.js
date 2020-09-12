@@ -4,17 +4,17 @@ import { ContextConsumer } from '../Context'
 export default function InfoPlate(){
 
     const renderPainting = props => {
-        const { name, link, artist, artistLink, dimensions, location, medium, years} = props.currentPainting
+        const { name, link, artist, artistLink, otherName, dimensions, location, medium, years} = props.currentPainting
 
         return ( //Render Each individual images
             <div className="info-plate">
-                <a href={link} className="plate name">{name}</a>
-                <br/>
                 <a href={artistLink} className="plate artist">{artist}</a> 
                 <br/>
-                {years} | {dimensions} | {medium}
+                <a href={link} className="plate name">{name}{otherName ? ` (${otherName})` : null}</a>
                 <br/>
-                {location}
+                Painted in {years} on {medium} ({dimensions})
+                <br/>
+                Exposed at {location}
             </div>
         )
     }
