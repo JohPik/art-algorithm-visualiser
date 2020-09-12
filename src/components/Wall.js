@@ -15,16 +15,19 @@ export default function Wall(){
             artLeftandRight, 
             artTopandBottom } = props.artSizing
 
-        const { frameImg, sizing } = props.currentPainting 
+        const { frameImg, sizing, id } = props.currentPainting 
 
-        const maxWidth = !sizing ? null : (sizing.imgWidth / (sizing.imgRelativeSize * 10)) * 10 
+        // const maxWidth = !sizing ? null : (sizing.imgWidth / (sizing.imgRelativeSize * 10)) * 10 
+        const maxWidth = !sizing ? null : sizing.imgWidth
+        
+        console.log("maxWidth", maxWidth)
 
         const roundNum = (num) => (Math.round(num * 10) / 10) - 0.1
         
         return (
             <section className="wall-wrapper">
-                <div className="painting-container" style={{ maxWidth: (maxWidth * 1.1) }}>
-                <button onClick={() => changeArt("previous")}>Backward</button>
+                <div className="painting-container" style={{ maxWidth }}>
+                { id ?  <button onClick={() => changeArt("previous")}>Backward</button> : null }
                     <div className="frame" style={{ backgroundImage: `url('${frameImg}')`, paddingBottom: frameAspectRatio + "%"}}>
                         <div className="mat" 
                             style={!matLeftandRight ? {
@@ -41,7 +44,7 @@ export default function Wall(){
                             </div>
                         </div>
                     </div>
-                <button onClick={() => changeArt("next")}>Forward</button>
+                { id !== 4 ?  <button onClick={() => changeArt("next")}>Forward</button> : null }
             </div>
             <InfoPlate/>
             </section>
