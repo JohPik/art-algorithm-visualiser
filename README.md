@@ -1,4 +1,4 @@
-# Just a Dash Beauty - Ecommerce Application (ReactJS, Paypal API)
+# Artgorithm - Algorithm visualiser (ReactJS)
 This application is a Algorithm visualiser. The website is hosted live on [Netlify](https://johpik-artgorithm.netlify.app/).
 
 ## Before Starting
