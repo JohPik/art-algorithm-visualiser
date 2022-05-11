@@ -1,25 +1,22 @@
+:root {
+  /* colors */
+--Black: #0A0A0A;
+--Yellow: #FFE599;
+--Turquoise: #B4DDE7;
+--Green: #B2ED9D;
+--Blue: #71A3FF;
+--Pink: #FCC8FA;
 
-
-// Main Colors
-$Black: #0A0A0A;
-$Yellow: #FFE599;
-$Turquoise: #B4DDE7;
-$Green: #B2ED9D;
-$Blue: #71A3FF;
-$Pink: #FCC8FA;
-
-
-
-//Main Fonts
-$FontLora: 'Lora', serif;
-$FontCode: 'Source Code Pro', monospace;
-
+/* fonts */
+--FontLora: 'Lora', serif;
+--FontCode: 'Source Code Pro', monospace;
+}
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: $FontLora;
+  font-family: var(--FontLora);
   font-size: 1rem;
 }
 
@@ -49,7 +46,7 @@ $FontCode: 'Source Code Pro', monospace;
 
 /********** Main **********/
 .main {
-  background-image: url('/imgs/concrete-tile.jpg'); 
+  background-image: url(../public/imgs/concrete-tile.jpg);
   background-size: auto;
   background-repeat: repeat;
   width: 100%;
@@ -73,32 +70,33 @@ $FontCode: 'Source Code Pro', monospace;
   margin: auto;
   padding-bottom: 0px;
   transition: all 0.3s ease-in;
-
-  button {
-    position: absolute;
-    top: 50%;
-    transform: translate(0%, -50%);
-    font-weight: bold;
-    font-size: 2em;
-    padding: 0;
-    border: none;
-    padding: 20px;
-    background: transparent;
-    outline: none;
-    cursor: pointer;
-  }
-
-  .previous {
-    position: absolute;
-    top: 50%;
-    left: -100px;
-    transform: translate(0%, -50%);
-  }
-
-  .next {
-    right: -100px;
-  }
 }
+
+.painting-container button {
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+  font-weight: bold;
+  font-size: 2em;
+  padding: 0;
+  border: none;
+  padding: 20px;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+}
+
+.painting-container .previous {
+  position: absolute;
+  top: 50%;
+  left: -100px;
+  transform: translate(0%, -50%);
+}
+
+.painting-container .next {
+  right: -100px;
+}
+
 
 .frame {
   position: relative;
@@ -137,13 +135,13 @@ $FontCode: 'Source Code Pro', monospace;
     font-size: .8em;
     position: absolute;
     bottom: -80px;    
+}
 
-    a {
+.info-plate a { 
       font-size: 1em;
       text-decoration: none;
       font-weight: bold;
-      color:$Black;
-    }
+      color:var(--Black);
 }
 
 /********** Form **********/
@@ -162,24 +160,25 @@ form {
   flex-direction: column;
   justify-content: space-between;
   padding: 48px 24px;
+}
 
-  h3 {
-    font-size: 1.1em;
-    letter-spacing: 0.1em;
-    padding-bottom: 8px;
-  }
+form h3 {
+  font-size: 1.1em;
+  letter-spacing: 0.1em;
+  padding-bottom: 8px;
+}
 
-  p {
-    font-family: $FontCode;
+form p {
+    font-family: var(--FontCode);
     font-size: .8em;
     padding-bottom: 14px;
   }
 
-  input {
+form  input {
     cursor: pointer;
   }
   
-  input[type=number] {
+form input[type=number] {
     margin-bottom: 8px;
     border: solid white 1px;
     font-size: .8em;
@@ -188,12 +187,12 @@ form {
     padding: 5px 10px;
   }
 
-  label {
+form label {
     font-size: .8em;
     padding-left: 8px;
   }
 
-  button {
+form button {
     display: block;
     margin: auto;
     border: solid ;
@@ -206,35 +205,35 @@ form {
     cursor: pointer;
   }
 
-  .shadow-button {
+form .shadow-button {
     background-color: transparent;
     margin-bottom: 8px;
   }
 
-  .speed-tag {
-    font-family: $FontCode;
+form .speed-tag {
+    font-family: var(--FontCode);
     font-weight: bold;
     font-size: .8em;
   }
-}
 
 /********** custom coloring **********/
 .yellow, .yellow::before {
-  background-color: $Yellow;
+  background-color: var(--Yellow);
 }
 
 .turquoise, .turquoise::before {
-  background-color: $Turquoise;
+  background-color: var(--Turquoise);
 }
 
 .green, .green::before {
-  background-color: $Green;
+  background-color: var(--Green);
 }
 
 .blue, .blue::before {
-  background-color: $Blue;
+  background-color: var(--Blue);
 }
 
 .pink, .pink::before {
-  background-color: $Pink;
+  background-color: var(--Pink);
 }
+

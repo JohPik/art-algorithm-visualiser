@@ -22,7 +22,6 @@ export default function Wall(){
         // const maxWidth = !sizing ? null : (sizing.imgWidth / (sizing.imgRelativeSize * 10)) * 10 
         const maxWidth = !sizing ? null : sizing.imgWidth * 0.9
         
-        console.log("maxWidth", maxWidth)
         
         //Round Number and decreast by 0.2 to delete extra pixel when resizing painting dinamically
         const roundNum = (num) => (Math.round(num * 10) / 10) - 0.2
