@@ -1,15 +1,15 @@
 :root {
   /* colors */
---Black: #0A0A0A;
---Yellow: #FFE599;
---Turquoise: #B4DDE7;
---Green: #B2ED9D;
---Blue: #71A3FF;
---Pink: #FCC8FA;
+  --Black: #0a0a0a;
+  --Yellow: #ffe599;
+  --Turquoise: #b4dde7;
+  --Green: #b2ed9d;
+  --Blue: #71a3ff;
+  --Pink: #fcc8fa;
 
-/* fonts */
---FontLora: 'Lora', serif;
---FontCode: 'Source Code Pro', monospace;
+  /* fonts */
+  --FontLora: "Lora", serif;
+  --FontCode: "Source Code Pro", monospace;
 }
 
 * {
@@ -19,7 +19,6 @@
   font-family: var(--FontLora);
   font-size: 1rem;
 }
-
 
 /********** Logo **********/
 .logo {
@@ -50,7 +49,6 @@
   background-size: auto;
   background-repeat: repeat;
   width: 100%;
-  height: 100%;
   min-width: 100vw;
   min-height: 100vh;
   display: flex;
@@ -61,6 +59,7 @@
 .wall-wrapper {
   width: calc(100% - 215px);
   text-align: center;
+  max-width: 100%;
 }
 
 /********** Frame, Mat and Art **********/
@@ -89,14 +88,13 @@
 .painting-container .previous {
   position: absolute;
   top: 50%;
-  left: -100px;
+  left: -70px;
   transform: translate(0%, -50%);
 }
 
 .painting-container .next {
-  right: -100px;
+  right: -70px;
 }
-
 
 .frame {
   position: relative;
@@ -108,7 +106,7 @@
 .mat {
   position: absolute;
   background: white;
-  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.5) inset;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5) inset;
 }
 
 .art {
@@ -119,29 +117,29 @@
 }
 
 .art:after {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   top: 0;
   width: 100%;
   height: 100%;
-  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.5) inset;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5) inset;
 }
 
 /********** Info Plate **********/
 .info-plate {
-    text-align: left;
-    font-style: italic;
-    font-size: .8em;
-    position: absolute;
-    bottom: -80px;    
+  text-align: left;
+  font-style: italic;
+  font-size: 0.8em;
+  position: absolute;
+  bottom: -80px;
 }
 
-.info-plate a { 
-      font-size: 1em;
-      text-decoration: none;
-      font-weight: bold;
-      color:var(--Black);
+.info-plate a {
+  font-size: 1em;
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--Black);
 }
 
 /********** Form **********/
@@ -169,71 +167,111 @@ form h3 {
 }
 
 form p {
-    font-family: var(--FontCode);
-    font-size: .8em;
-    padding-bottom: 14px;
-  }
+  font-family: var(--FontCode);
+  font-size: 0.8em;
+  padding-bottom: 14px;
+}
 
-form  input {
-    cursor: pointer;
-  }
-  
-form input[type=number] {
-    margin-bottom: 8px;
-    border: solid white 1px;
-    font-size: .8em;
-    text-align: center;
-    border-radius: 5px;
-    padding: 5px 10px;
-  }
+form input {
+  cursor: pointer;
+}
+
+form input[type="number"] {
+  margin-bottom: 8px;
+  border: solid white 1px;
+  font-size: 0.8em;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
 
 form label {
-    font-size: .8em;
-    padding-left: 8px;
-  }
+  font-size: 0.8em;
+  padding-left: 8px;
+}
 
 form button {
-    display: block;
-    margin: auto;
-    border: solid ;
-    width: 100%;
-    padding: 14px;
-    background-color: white;
-    border: 2px solid #FFFFFF;
-    box-sizing: border-box;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+  display: block;
+  margin: auto;
+  border: solid;
+  width: 100%;
+  padding: 14px;
+  background-color: white;
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+form button:disabled {
+  cursor: not-allowed;
+}
 
 form .shadow-button {
-    background-color: transparent;
-    margin-bottom: 8px;
-  }
+  background-color: transparent;
+  margin-bottom: 8px;
+}
 
 form .speed-tag {
-    font-family: var(--FontCode);
-    font-weight: bold;
-    font-size: .8em;
-  }
+  font-family: var(--FontCode);
+  font-weight: bold;
+  font-size: 0.8em;
+}
 
 /********** custom coloring **********/
-.yellow, .yellow::before {
+.yellow,
+.yellow::before {
   background-color: var(--Yellow);
 }
 
-.turquoise, .turquoise::before {
+.turquoise,
+.turquoise::before {
   background-color: var(--Turquoise);
 }
 
-.green, .green::before {
+.green,
+.green::before {
   background-color: var(--Green);
 }
 
-.blue, .blue::before {
+.blue,
+.blue::before {
   background-color: var(--Blue);
 }
 
-.pink, .pink::before {
+.pink,
+.pink::before {
   background-color: var(--Pink);
 }
 
+.resize {
+  display: none;
+}
+
+@media only screen and (max-width: 1060px) {
+  .resize {
+    display: block;
+    z-index: 100;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media only screen and (max-heigth: 780px) {
+  .resize {
+    display: block;
+    z-index: 100;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+}
